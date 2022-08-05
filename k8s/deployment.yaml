@@ -1,6 +1,6 @@
 # Deployment do Postgre
 apiVersion: apps/v1
-kind: Deployment 
+kind: Deployment
 metadata:
   name: postgre
 spec:
@@ -19,14 +19,14 @@ spec:
             - containerPort: 5432
           env:
           - name: POSTGRES_PASSWORD
-            value: "kube#123"
+            value: "Kube#123"
           - name: POSTGRES_USER
             value: "kubenews"
           - name: POSTGRES_DB
             value: "kubenews"
 ---
-apiVersion: v1 
-kind: Service 
+apiVersion: v1
+kind: Service
 metadata:
   name: postgre
 spec:
@@ -39,7 +39,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kubenews 
+  name: kubenews
 spec:
   selector:
     matchLabels:
@@ -58,20 +58,19 @@ spec:
         - name: DB_USERNAME
           value: "kubenews"
         - name: DB_PASSWORD
-          value: "kube#123"
+          value: "Kube#123"
         - name: DB_HOST
           value: "postgre"
 ---
-apiVersion: v1 
-kind: Service 
+apiVersion: v1
+kind: Service
 metadata:
-  name: kube-news 
+  name: kube-news
 spec:
-  selector: 
+  selector:
     app: kubenews
-  ports: 
+  ports:
   - port: 80
     targetPort: 8080
     nodePort: 30000
   type: NodePort
-
